@@ -1,11 +1,11 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template  
 import requests, os
 
 app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return "<h1>Weather Dashboard</h1><p>Try /weather?lat=-37.81&lon=144.96</p>"
+    return render_template("index.html")
 
 @app.route("/weather")
 def weather():
