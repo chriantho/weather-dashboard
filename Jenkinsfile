@@ -2,9 +2,9 @@ pipeline {
     agent any
     
     environment {
-        DOCKER_IMAGE = "your-dockerhub-username/cloudcast"
+        DOCKER_IMAGE = "104001159@student.swin.edu.au/cloudcast"
         DOCKER_TAG = "${BUILD_NUMBER}"
-        EC2_HOST = "ec2-user@your-ec2-ip"
+        EC2_HOST = "ec2-user@52.65.235.19"
     }
     
     stages {
