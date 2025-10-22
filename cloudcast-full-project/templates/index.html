@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CloudCast – Weather Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <h1>☁️ CloudCast</h1>
+    <p class="subtitle">Real-time weather via Open‑Meteo • CI/CD on AWS</p>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2 class="section-title">Find Weather</h2>
+      <form id="weatherForm" class="form">
+        <div class="field">
+          <label for="lat">Latitude</label>
+          <input type="text" id="lat" inputmode="decimal" placeholder="-37.81" required>
+        </div>
+        <div class="field">
+          <label for="lon">Longitude</label>
+          <input type="text" id="lon" inputmode="decimal" placeholder="144.96" required>
+        </div>
+        <div class="actions">
+          <button type="submit" class="btn primary">Get Weather</button>
+          <button type="button" id="useGeo" class="btn">Use My Location</button>
+        </div>
+      </form>
+
+      <div class="presets">
+        <button class="chip" data-lat="-37.8136" data-lon="144.9631">Melbourne</button>
+        <button class="chip" data-lat="-33.8688" data-lon="151.2093">Sydney</button>
+        <button class="chip" data-lat="-27.4698" data-lon="153.0251">Brisbane</button>
+        <button class="chip" data-lat="-34.9285" data-lon="138.6007">Adelaide</button>
+      </div>
+
+      <div id="status" class="status" aria-live="polite"></div>
+      <div id="result" class="result"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>CloudCast • Flask + Open‑Meteo • Deployed via Docker/Jenkins/AWS</span>
+  </footer>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
