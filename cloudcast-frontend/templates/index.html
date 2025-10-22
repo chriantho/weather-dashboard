@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CloudCast – Weather Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>☁️ CloudCast</h1>
+    <p>Get real-time weather data from Open-Meteo API.</p>
+    <form id="weatherForm">
+      <input type="text" id="lat" placeholder="Latitude (e.g. -37.81)" required>
+      <input type="text" id="lon" placeholder="Longitude (e.g. 144.96)" required>
+      <button type="submit">Get Weather</button>
+    </form>
+    <div id="result" class="result"></div>
+  </div>
+  <script>
+    document.getElementById("weatherForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const lat = document.getElementById("lat").value;
+      const lon = document.getElementById("lon").value;
+      const result = document.getElementById("result");
+      result.innerHTML = "<p>Loading...</p>";
+      try {
+        const res = await fetch(`/weather?lat=${lat}&lon=${lon}`);
+        const data = await res.json();
+        if (data.error) {
+          result.innerHTML = `<p class='error'>${data.error}</p>`;
+        } else {
+          const temp = data.current_weather?.temperature || "N/A";
+          const wind = data.current_weather?.windspeed || "N/A";
+          result.innerHTML = `
+            <h2>Current Weather</h2>
+            <p><strong>Temperature:</strong> ${temp}°C</p>
+            <p><strong>Wind Speed:</strong> ${wind} km/h</p>
+          `;
+        }
+      } catch (err) {
+        result.innerHTML = "<p class='error'>Unable to fetch weather data.</p>";
+      }
+    });
+  </script>
+</body>
+</html>
